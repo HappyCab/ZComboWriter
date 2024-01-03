@@ -47,7 +47,7 @@ class ZComboWriter:
             "9" : 1
         }            
           
-        self.Combo = Entry(self.root, width=50, borderwidth=5)
+        self.Combo = Entry(self.root, width=100, borderwidth=5, )
         self.Combo.grid(row=0, column=1, columnspan=7, padx=10, pady=10)
         
         self.define_buttons()

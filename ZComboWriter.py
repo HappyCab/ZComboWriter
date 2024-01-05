@@ -10,7 +10,7 @@ class ZComboWriter:
         self.root.title("ZCombo Writer")
         self.root.geometry(WINDOW_RESOLUTION)
         self.index = 0
-        self.lastmove = "DR"
+        self.history = []
         self.air = False
         # Move priority
         self.landpriority = {
@@ -83,17 +83,18 @@ class ZComboWriter:
         ##    self.index += 1
             
             
-        self.lastmove = input
+        self.history.append(input)
         
     def backspace(self):
         if self.index > 0:
-            self.index -= 1
+            self.index -= len(self.history[-1])
             self.Combo.delete(self.index, 'end')
                       
               
     def clear(self):
         self.index = 0
         self.Combo.delete(0, 'end')
+        self.history = []
         
     def get_images(self):
         self.imgLight = PhotoImage(file="img/inputs/light.png")
@@ -131,9 +132,9 @@ class ZComboWriter:
         self.btnMedium = Button(self.root, image=self.imgMedium, borderwidth=0, command=lambda: self.enter_text("M"))
         self.btnHeavy = Button(self.root, image=self.imgHeavy, borderwidth=0, command=lambda: self.enter_text("H"))
         self.btnSpecial = Button(self.root, image=self.imgSpecial, borderwidth=0, command=lambda: self.enter_text("S"))
-        self.btnSuperDash = Button(self.root, text="Super Dash", padx=40, pady=20, command=lambda: self.enter_text("SD"))
-        self.btnDragonRush = Button(self.root, text="Dragon Rush", padx=40, pady=20, command=lambda: self.enter_text("DR"))
-        self.btnSpark = Button(self.root, text="Spark", padx=40, pady=20, command=lambda: self.enter_text("Spark"))
+        self.btnSuperDash = Button(self.root, text="Super Dash", command=lambda: self.enter_text("SD"))
+        self.btnDragonRush = Button(self.root, text="Dragon Rush", command=lambda: self.enter_text("DR"))
+        self.btnSpark = Button(self.root, text="Spark", command=lambda: self.enter_text("Spark"))
         
         # Misc
         self.btnDelete = Button(self.root, text="Backspace", padx=40, pady=20, command=self.backspace)
@@ -157,9 +158,11 @@ class ZComboWriter:
         self.btnMedium.grid(row=1, column=7)
         self.btnHeavy.grid(row=2, column=8)
         self.btnSpecial.grid(row=3, column=7)
-        self.btnSuperDash.grid(row=4, column=6)
-        self.btnDragonRush.grid(row=4, column=7)
-        self.btnSpark.grid(row=4, column=8)
+        
+        # Place Combo Buttons
+        self.btnSuperDash.grid(row=5, column=3, pady=50)
+        self.btnDragonRush.grid(row=5, column=4, pady=50)
+        self.btnSpark.grid(row=5, column=5, pady=50)
         
         
         # Place Misc Buttons

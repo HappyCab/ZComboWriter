@@ -54,25 +54,28 @@ class ZComboWriter:
         self.place_buttons()
 
     def enter_text(self, input):
-        if self.air == False:
-            if self.landpriority[input] < self.landpriority[self.lastmove]:
-                self.Combo.insert(self.index, " > ")
-                self.index += 3
-        else:
-            if self.airpriority[input] < self.airpriority[self.lastmove]:
-                self.Combo.insert(self.index, " > ")
-                self.index += 3
-                
+        self.Combo.insert(self.index, input)
+        self.index += len(input)
         
-        if input == "SD" or input == "DR":
-            self.Combo.insert(self.index, input + " > ")
-            self.index += 5
-        elif input == "Spark":
-            self.Combo.insert(self.index, input + " > ")
-            self.index += 8
-        else:
-            self.Combo.insert(self.index, input)
-            self.index += 1
+        ##if self.air == False:
+        ##    if self.landpriority[input] < self.landpriority[self.lastmove]:
+        ##        self.Combo.insert(self.index, " > ")
+        ##        self.index += 3
+        ##else:
+        ##    if self.airpriority[input] < self.airpriority[self.lastmove]:
+        ##        self.Combo.insert(self.index, " > ")
+        ##        self.index += 3
+        ##        
+        ##
+        ##if input == "SD" or input == "DR":
+        ##    self.Combo.insert(self.index, input + " > ")
+        ##    self.index += 5
+        ##elif input == "Spark":
+        ##    self.Combo.insert(self.index, input + " > ")
+        ##    self.index += 8
+        ##else:
+        ##    self.Combo.insert(self.index, input)
+        ##    self.index += 1
             
             
         self.lastmove = input
@@ -111,6 +114,7 @@ class ZComboWriter:
         # Misc
         self.btnDelete = Button(self.root, text="←", padx=40, pady=20, command=self.backspace)
         self.btnClear = Button(self.root, text="Clear", padx=40, pady=20, command=self.clear)
+        self.btnDivider = Button(self.root, text=">", padx=40, pady=20, command=lambda: self.enter_text(" > "))
         
     def place_buttons(self):
         # Place Movement Buttons
@@ -131,11 +135,13 @@ class ZComboWriter:
         self.btnSpecial.grid(row=2, column=8)
         self.btnSuperDash.grid(row=1, column=8)
         self.btnDragonRush.grid(row=1, column=6)
-        self.btnSpark.grid(row=3, column=8)
+        self.btnSpark.grid(row=2, column=7)
+        
         
         # Place Misc Buttons
         self.btnDelete.grid(row=1, column=9)
         self.btnClear.grid(row=2, column=9)
+        self.btnDivider.grid(row=3, column=8)
 
 
 if __name__ == "__main__":

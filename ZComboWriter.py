@@ -1,9 +1,14 @@
 from tkinter import *
 
+WINDOW_XSIZE = "800"
+WINDOW_YSIZE = "450"
+WINDOW_RESOLUTION = WINDOW_XSIZE + "x" + WINDOW_YSIZE
+
 class ZComboWriter:
     def __init__(self, root):
         self.root = root
         self.root.title("ZCombo Writer")
+        self.root.geometry(WINDOW_RESOLUTION)
         self.index = 0
         self.lastmove = "DR"
         self.air = False
@@ -46,10 +51,10 @@ class ZComboWriter:
             "8" : 1,
             "9" : 1
         }            
-          
-        self.Combo = Entry(self.root, width=100, borderwidth=5, )
-        self.Combo.grid(row=0, column=1, columnspan=7, padx=10, pady=10)
         
+        self.get_images()
+        self.display_bg()
+        self.place_textbox()
         self.define_buttons()
         self.place_buttons()
 
@@ -89,6 +94,25 @@ class ZComboWriter:
     def clear(self):
         self.index = 0
         self.Combo.delete(0, 'end')
+        
+    def get_images(self):
+        self.imgLight = PhotoImage(file="img/inputs/light.png")
+        self.imgMedium = PhotoImage(file="img/inputs/medium.png")
+        self.imgHeavy = PhotoImage(file="img/inputs/heavy.png")
+        self.imgSpecial = PhotoImage(file="img/inputs/special.png")
+        self.imgAssist1 = PhotoImage(file="img/inputs/assist1.png")
+        self.imgAssist2 = PhotoImage(file="img/inputs/assist2.png")
+        self.imgSpark = PhotoImage(file="img/inputs/spark.png")
+        self.imgBg = PhotoImage(file="img/misc/background.png")
+        
+
+    def display_bg(self):
+        background_label = Label(root, image=self.imgBg)
+        background_label.place(x=0, y=0, relwidth=1, relheight=1)
+        
+    def place_textbox(self):
+        self.Combo = Entry(self.root, width=100, borderwidth=5)
+        self.Combo.grid(row=0, column=1, columnspan=9, padx=10, pady=10)
 
     def define_buttons(self):
         # Movement
@@ -103,18 +127,18 @@ class ZComboWriter:
         self.btn9 = Button(self.root, text="9", padx=40, pady=20, command=lambda: self.enter_text("9"))
         
         # Face
-        self.btnLight = Button(self.root, text="L", padx=40, pady=20, command=lambda: self.enter_text("L"))
-        self.btnMedium = Button(self.root, text="M", padx=40, pady=20, command=lambda: self.enter_text("M"))
-        self.btnHeavy = Button(self.root, text="H", padx=40, pady=20, command=lambda: self.enter_text("H"))
-        self.btnSpecial = Button(self.root, text="S", padx=40, pady=20, command=lambda: self.enter_text("S"))
-        self.btnSuperDash = Button(self.root, text="SD", padx=40, pady=20, command=lambda: self.enter_text("SD"))
-        self.btnDragonRush = Button(self.root, text="DR", padx=40, pady=20, command=lambda: self.enter_text("DR"))
+        self.btnLight = Button(self.root, image=self.imgLight, borderwidth=0, command=lambda: self.enter_text("L"))
+        self.btnMedium = Button(self.root, image=self.imgMedium, borderwidth=0, command=lambda: self.enter_text("M"))
+        self.btnHeavy = Button(self.root, image=self.imgHeavy, borderwidth=0, command=lambda: self.enter_text("H"))
+        self.btnSpecial = Button(self.root, image=self.imgSpecial, borderwidth=0, command=lambda: self.enter_text("S"))
+        self.btnSuperDash = Button(self.root, text="Super Dash", padx=40, pady=20, command=lambda: self.enter_text("SD"))
+        self.btnDragonRush = Button(self.root, text="Dragon Rush", padx=40, pady=20, command=lambda: self.enter_text("DR"))
         self.btnSpark = Button(self.root, text="Spark", padx=40, pady=20, command=lambda: self.enter_text("Spark"))
         
         # Misc
-        self.btnDelete = Button(self.root, text="←", padx=40, pady=20, command=self.backspace)
+        self.btnDelete = Button(self.root, text="Backspace", padx=40, pady=20, command=self.backspace)
         self.btnClear = Button(self.root, text="Clear", padx=40, pady=20, command=self.clear)
-        self.btnDivider = Button(self.root, text=">", padx=40, pady=20, command=lambda: self.enter_text(" > "))
+        self.btnDivider = Button(self.root, text="Divider ( > )", padx=40, pady=20, command=lambda: self.enter_text(" > "))
         
     def place_buttons(self):
         # Place Movement Buttons
@@ -129,19 +153,19 @@ class ZComboWriter:
         self.btn9.grid(row=1, column=3)
 
         # Place Face Buttons
-        self.btnLight.grid(row=1, column=7)
-        self.btnMedium.grid(row=2, column=6)
-        self.btnHeavy.grid(row=3, column=7)
-        self.btnSpecial.grid(row=2, column=8)
-        self.btnSuperDash.grid(row=1, column=8)
-        self.btnDragonRush.grid(row=1, column=6)
-        self.btnSpark.grid(row=2, column=7)
+        self.btnLight.grid(row=2, column=6)
+        self.btnMedium.grid(row=1, column=7)
+        self.btnHeavy.grid(row=2, column=8)
+        self.btnSpecial.grid(row=3, column=7)
+        self.btnSuperDash.grid(row=4, column=6)
+        self.btnDragonRush.grid(row=4, column=7)
+        self.btnSpark.grid(row=4, column=8)
         
         
         # Place Misc Buttons
         self.btnDelete.grid(row=1, column=9)
         self.btnClear.grid(row=2, column=9)
-        self.btnDivider.grid(row=3, column=8)
+        self.btnDivider.grid(row=3, column=9)
 
 
 if __name__ == "__main__":

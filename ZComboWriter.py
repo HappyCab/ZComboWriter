@@ -1,4 +1,5 @@
 from tkinter import *
+import pyperclip
 
 WINDOW_XSIZE = "800"
 WINDOW_YSIZE = "450"
@@ -96,7 +97,8 @@ class ZComboWriter:
         self.history = []
         
     def copy(self):
-        return
+        combotext = self.Combo.get()
+        pyperclip.copy(combotext)
         
     def get_images(self):
         self.imgLight = PhotoImage(file="img/inputs/light.png")
@@ -113,7 +115,7 @@ class ZComboWriter:
         background_label.place(x=0, y=0, relwidth=1, relheight=1)
         
     def place_textbox(self):
-        self.Combo = Entry(self.root, width=100, borderwidth=5)
+        self.Combo = Entry(self.root, width=100, borderwidth=5, state= NORMAL)
         self.Combo.grid(row=0, column=1, columnspan=8, padx=10, pady=10)
 
     def define_buttons(self):
@@ -130,22 +132,28 @@ class ZComboWriter:
         self.btnJump = Button(self.root, text="Jump", width=10, pady=10, command=lambda: self.enter_text("j"))
         
         # Face
-        self.btnLight = Button(self.root, image=self.imgLight, borderwidth=0, command=lambda: self.enter_text("L"))
-        self.btnMedium = Button(self.root, image=self.imgMedium, borderwidth=0, command=lambda: self.enter_text("M"))
-        self.btnHeavy = Button(self.root, image=self.imgHeavy, borderwidth=0, command=lambda: self.enter_text("H"))
-        self.btnSpecial = Button(self.root, image=self.imgSpecial, borderwidth=0, command=lambda: self.enter_text("S"))
-        self.btnAssist1 = Button(self.root, image=self.imgAssist1, borderwidth=0, background="white", command=lambda: self.enter_text("A1"))
-        self.btnAssist2 = Button(self.root, image=self.imgAssist2, borderwidth=0, background="white", command=lambda: self.enter_text("A2"))
+        self.btnLight = Button(self.root, image=self.imgLight, command=lambda: self.enter_text("L"))
+        self.btnMedium = Button(self.root, image=self.imgMedium, command=lambda: self.enter_text("M"))
+        self.btnHeavy = Button(self.root, image=self.imgHeavy, command=lambda: self.enter_text("H"))
+        self.btnSpecial = Button(self.root, image=self.imgSpecial, command=lambda: self.enter_text("S"))
+        
+        # Assist
+        self.btnAssist1 = Button(self.root, image=self.imgAssist1, background="white", command=lambda: self.enter_text("A1"))
+        self.btnAssist2 = Button(self.root, image=self.imgAssist2, background="white", command=lambda: self.enter_text("A2"))
+        
+        # Combo
         self.btnSuperDash = Button(self.root, text="Super Dash", width=10, pady=10, command=lambda: self.enter_text("SD"))
         self.btnDragonRush = Button(self.root, text="Dragon Rush", width=10, pady=10, command=lambda: self.enter_text("DR"))
         self.btnSpark = Button(self.root, image=self.imgSpark, command=lambda: self.enter_text("Spark"))
+        self.btnLevel1 =  Button(self.root, text="Level 1", width=10, pady=10, command=lambda: self.enter_text("LVL1"))   
+        self.btnLevel2 =  Button(self.root, text="Level 2", width=10, pady=10, command=lambda: self.enter_text("LVL2"))  
+        self.btnLevel3 =  Button(self.root, text="Level 3", width=10, pady=10, command=lambda: self.enter_text("LVL3"))
         
         # Misc
-        self.btnDelete = Button(self.root, text="Backspace", padx=10, pady=10, command=self.backspace)
-        self.btnClear = Button(self.root, text="Clear", padx=10, pady=10, command=self.clear)
-        self.btnDivider = Button(self.root, text="Divider '>'", padx=10, pady=10, command=lambda: self.enter_text(" > "))
-        self.btnCopy = Button(self.root, text="Copy", padx=10, command=lambda: self.copy)
-        
+        self.btnDelete = Button(self.root, text="Backspace", width=10, pady=10, command=self.backspace)
+        self.btnClear = Button(self.root, text="Clear", width=10, pady=10, command=self.clear)
+        self.btnDivider = Button(self.root, text="Divider '>'", width=10, pady=10, command=lambda: self.enter_text(" > "))
+        self.btnCopy = Button(self.root, text="Copy", width=10, command=self.copy)
     def place_buttons(self):
         # Place Movement Buttons
         self.btn1.grid(row=3, column=1)
@@ -173,6 +181,11 @@ class ZComboWriter:
         self.btnSuperDash.grid(row=2, column=4, pady=50)
         self.btnDragonRush.grid(row=3, column=4)
         self.btnSpark.grid(row=2, column=7, pady=50)
+        
+        #Place Supers
+        self.btnLevel1.grid(row=1, column=5)
+        self.btnLevel2.grid(row=2, column=5)
+        self.btnLevel3.grid(row=3, column=5)
                
         # Place Misc Buttons
         self.btnDelete.grid(row=1, column=9)
